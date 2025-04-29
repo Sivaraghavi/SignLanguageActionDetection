@@ -1,7 +1,5 @@
 # SignLanguageActionDetection
 
-*Example of landmark detection on a video frame using MediaPipe for sign language gesture recognition.*
-
 This repository contains the code and resources for the **SignLanguageActionDetection** project, a machine learning-based system designed to detect and classify sign language actions from video input. The project focuses on recognizing gestures such as "hello," "thanks," and "iloveyou," enabling applications that enhance communication accessibility for the hearing-impaired and integrate sign language into interactive systems.
 
 ## Key Features
@@ -53,7 +51,7 @@ This repository contains the code and resources for the **SignLanguageActionDete
   ├── thanks/
   └── iloveyou/
   ```
-![Sign Language Detection Example](path/to/your/image.jpg) 
+![Sign Language Detection Example](output.png) 
 ## Model Architecture
 The system uses an **LSTM-based neural network** for sequence classification:
 - **Input**: Sequences of keypoints from 30-frame video clips (shape: 30 × 1662).
@@ -86,7 +84,3 @@ Contributions are welcome! To contribute:
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-**Note**: Replace `path/to/your/image.jpg` with the actual path to an image (e.g., a screenshot of a video frame with landmarks drawn using MediaPipe). Update `https://github.com/yourusername/SignLanguageActionDetection` with your actual GitHub repository URL. If you have specific accuracy metrics or additional details, include them in the "Results" section.
