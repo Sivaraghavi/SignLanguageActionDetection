@@ -1,42 +1,48 @@
 # SignLanguageActionDetection
 
 ![Sign Language Detection Example](path/to/your/image.jpg)  
-*Example of landmark detection on a video frame using MediaPipe.*
+*Example of landmark detection on a video frame using MediaPipe for sign language gesture recognition.*
 
-This repository contains the code and resources for the **SignLanguageActionDetection** project, a machine learning-based system designed to detect and classify sign language actions from video input. The project aims to build an efficient model capable of recognizing gestures such as "hello," "thanks," and "iloveyou," providing a foundation for applications that facilitate communication for the hearing-impaired or enable sign language integration into interactive systems.
+This repository contains the code and resources for the **SignLanguageActionDetection** project, a machine learning-based system designed to detect and classify sign language actions from video input. The project focuses on recognizing gestures such as "hello," "thanks," and "iloveyou," enabling applications that enhance communication accessibility for the hearing-impaired and integrate sign language into interactive systems.
 
 ## Key Features
-- **Real-time Video Processing**: Analyzes video frames to detect and classify sign language gestures in real time.
-- **Landmark Detection**: Utilizes MediaPipe to extract keypoints from the face, pose, and hands.
-- **Sequence Classification**: Employs an LSTM-based neural network to classify sequences of keypoints into predefined actions.
-- **Data Collection**: Supports scalable collection of video sequences for training and testing.
+- **Real-Time Gesture Recognition**: Processes video frames to detect and classify sign language actions in real time.
+- **Landmark Extraction**: Uses MediaPipe to extract keypoints from face, pose, and hand landmarks for robust feature representation.
+- **LSTM-Based Classification**: Employs a Long Short-Term Memory (LSTM) neural network to classify sequences of keypoints into predefined actions.
+- **Scalable Data Collection**: Supports structured collection of video sequences for training and testing.
 
 ## Technologies Used
 - **OpenCV**: For video capture and image processing.
 - **MediaPipe**: For detecting and extracting landmarks from video frames.
-- **TensorFlow/Keras**: For building and training the LSTM model.
-- **Google Colab**: The code is optimized to run in a Google Colab environment with GPU support.
+- **TensorFlow/Keras**: For building and training the LSTM-based model.
+- **Google Colab**: Optimized for execution in a Colab environment with GPU support.
+- **NumPy**: For efficient data manipulation and storage of keypoints.
 
 ## Setup Instructions
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/yourusername/SignLanguageActionDetection.git
+   git clone https://github.com/Sivaraghavi/SignLanguageActionDetection.git
+   cd SignLanguageActionDetection
    ```
 2. **Install Dependencies**:
-   Install the required libraries in your environment:
+   Install the required Python libraries in your environment or Colab:
    ```bash
    pip install mediapipe opencv-python-headless tensorflow
    ```
 3. **Run in Google Colab**:
-   - Upload the `SignLanguageActionDetection.ipynb` notebook to Google Colab.
-   - Use a webcam or upload a video file (e.g., `WIN_20240422_10_56_53_Pro.mp4`) for processing.
-   - Execute the notebook cells to collect data, train the model, and test the system.
+   - Open Google Colab and upload the `SignLanguageActionDetection.ipynb` notebook.
+   - Upload a video file (e.g., `WIN_20240422_10_56_53_Pro.mp4`) or use a webcam for real-time capture.
+   - Execute the notebook cells to perform data collection, train the model, and test the system.
 
 ## Data Collection and Preprocessing
-- **Actions**: The system detects three actions: "hello," "thanks," and "iloveyou."
-- **Sequences**: For each action, 30 video sequences are collected, each consisting of 30 frames.
-- **Keypoints Extraction**: MediaPipe extracts keypoints (pose: 33×4, face: 468×3, left hand: 21×3, right hand: 21×3) from each frame, saved as NumPy arrays in the `MP_Data` directory.
-- **Data Structure**:
+- **Actions**: Detects three sign language gestures: "hello," "thanks," and "iloveyou."
+- **Sequences**: Collects 30 video sequences per action, each containing 30 frames.
+- **Keypoint Extraction**: Extracts keypoints using MediaPipe:
+  - Pose: 33 keypoints × 4 features (x, y, z, visibility).
+  - Face: 468 keypoints × 3 features (x, y, z).
+  - Left Hand: 21 keypoints × 3 features (x, y, z).
+  - Right Hand: 21 keypoints × 3 features (x, y, z).
+- **Data Storage**: Keypoints are saved as NumPy arrays in the `MP_Data` directory:
   ```
   MP_Data/
   ├── hello/
@@ -50,24 +56,38 @@ This repository contains the code and resources for the **SignLanguageActionDete
   ```
 
 ## Model Architecture
-The model is an **LSTM-based neural network** designed for sequence classification:
-- **Input**: Sequences of keypoints extracted from 30-frame video clips.
+The system uses an **LSTM-based neural network** for sequence classification:
+- **Input**: Sequences of keypoints from 30-frame video clips (shape: 30 × 1662).
 - **Layers**:
-  - LSTM layers to model temporal dependencies.
-  - Dense layers for final classification.
-- **Output**: Predicts one of the three actions ("hello," "thanks," "iloveyou").
-
-The model is trained on labeled sequences and evaluated using accuracy metrics, achieving reasonable performance on the test set.
+  - Multiple LSTM layers to capture temporal dependencies in gesture sequences.
+  - Dense layers with softmax activation for multi-class classification.
+- **Output**: Classifies input sequences into one of three actions: "hello," "thanks," or "iloveyou."
+- **Training**: Trained on labeled sequences with a train-test split (95% train, 5% test).
 
 ## Results
-- **Accuracy**: The model achieves an accuracy of XX% on the test set (update with actual results if available).
-- **Confusion Matrix**: Detailed performance can be analyzed using the multilabel confusion matrix generated during evaluation.
+- **Accuracy**: Achieves promising accuracy on the test set (specific metrics to be updated after evaluation).
+- **Evaluation**: Uses multilabel confusion matrix and accuracy score to assess model performance.
+- **Real-Time Performance**: Capable of processing video input with low latency in Colab.
+
+## Usage
+1. **Data Collection**:
+   - Run the data collection section to capture 30 sequences per action using a webcam or video file.
+   - Keypoints are automatically saved in the `MP_Data` directory.
+2. **Model Training**:
+   - Execute the training section to train the LSTM model on collected data.
+   - Monitor training progress using TensorBoard (optional).
+3. **Testing**:
+   - Use the trained model to classify new video inputs in real time or from pre-recorded videos.
 
 ## Contribution
-Contributions are welcome! To get involved:
-- Open an issue to report bugs or suggest features.
-- Submit a pull request with your improvements.
+Contributions are welcome! To contribute:
+- Report bugs or suggest features by opening an issue.
+- Submit pull requests with improvements or new features.
+- Ensure code follows the project's structure and includes clear documentation.
+
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
-**Note**: Replace `path/to/your/image.jpg` with the actual path to an image (e.g., a video frame with landmarks drawn using MediaPipe) and update the GitHub URL with your repository link.
+**Note**: Replace `path/to/your/image.jpg` with the actual path to an image (e.g., a screenshot of a video frame with landmarks drawn using MediaPipe). Update `https://github.com/yourusername/SignLanguageActionDetection` with your actual GitHub repository URL. If you have specific accuracy metrics or additional details, include them in the "Results" section.
